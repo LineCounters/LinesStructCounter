@@ -11,6 +11,13 @@ repos:
         stages: [commit-msg]
         args: [--verbose]
 
+  - repo: https://gitlab.developers.cam.ac.uk/uis/devops/continuous-delivery/precommit-google-java-format
+    rev: v1.2.0
+    hooks:
+      - id: google-java-format
+        files: "\\.java$"
+        args: ["-i"]
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
