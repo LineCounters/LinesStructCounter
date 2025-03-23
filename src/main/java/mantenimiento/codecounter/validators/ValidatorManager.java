@@ -2,6 +2,10 @@ package mantenimiento.codecounter.validators;
 
 import mantenimiento.codecounter.interfaces.FormatValidatorHandler;
 import mantenimiento.codecounter.interfaces.LogicalValidatorHandler;
+import mantenimiento.codecounter.validators.formatValidators.ImportValidator;
+import mantenimiento.codecounter.validators.formatValidators.SingleAnnotationValidator;
+import mantenimiento.codecounter.validators.formatValidators.SingleDeclarationValidator;
+import mantenimiento.codecounter.validators.formatValidators.StyleKAndRValidator;
 import mantenimiento.codecounter.validators.logicalValidators.MethodDeclarationValidator;
 import mantenimiento.codecounter.validators.logicalValidators.TypeDeclarationValidator;
 
