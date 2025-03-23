@@ -5,6 +5,8 @@ import static mantenimiento.codecounter.constants.JavaRegextConstants.DATATYPE_D
 import static mantenimiento.codecounter.constants.JavaRegextConstants.FINAL_OR_STATIC_REGEX;
 import static mantenimiento.codecounter.constants.JavaRegextConstants.IDENTIFIER_DECLARATION_REGEX;
 
+import mantenimiento.codecounter.utils.TypeVerifier;
+
 /**
  * Clase que verifica si existe una declaración de un método para poder contabilizarlo como línea
  * lógica
@@ -39,5 +41,25 @@ public class MethodDeclarationValidator extends LogicalValidator {
    */
   private boolean isMethodDeclaration(String lineOfCode) {
     return lineOfCode.matches(METHOD_DECLARATION) && !lineOfCode.contains(";");
+  }
+
+  /**
+   * Obtiene el tipo de validación que se debe aplicar a una línea de código
+   *
+   * @return tipo de validación
+   */
+  @Override
+  protected boolean validate(String line) {
+    return isMethodDeclaration(line);
+  }
+
+  /**
+   * Obtiene el tipo de validación de método a una línea de código
+   *
+   * @return tipo de validación
+   */
+  @Override
+  protected TypeVerifier getValidationType() {
+    return TypeVerifier.METHOD_DECLARATION;
   }
 }
