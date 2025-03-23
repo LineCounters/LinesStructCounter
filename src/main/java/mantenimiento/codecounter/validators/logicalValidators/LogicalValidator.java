@@ -1,6 +1,9 @@
 package mantenimiento.codecounter.validators.logicalValidators;
 
+import java.util.ArrayList;
+import java.util.List;
 import mantenimiento.codecounter.interfaces.LogicalValidatorHandler;
+import mantenimiento.codecounter.utils.TypeVerifier;
 
 /**
  * Proporciona una implementación base para la validación lógica de código. Implementa la interfaz
@@ -32,4 +35,40 @@ public abstract class LogicalValidator implements LogicalValidatorHandler {
 
     return false;
   }
+
+  /**
+   * Obtiene los tipos de validación que se deben aplicar a una línea de código.
+   *
+   * @param line Línea de código a validar.
+   * @return Lista de tipos de validación que se deben aplicar a la línea.
+   */
+  @Override
+  public List<TypeVerifier> getValidationTypes(String line) {
+    List<TypeVerifier> validationTypes = new ArrayList<>();
+
+    if (validate(line)) {
+      validationTypes.add(getValidationType());
+    }
+
+    if (nextValidator != null) {
+      validationTypes.addAll(nextValidator.getValidationTypes(line));
+    }
+
+    return validationTypes;
+  }
+
+  /**
+   * Valida una línea de código.
+   *
+   * @param line Línea de código a validar.
+   * @return {@code true} si la línea es válida, {@code false} en caso contrario.
+   */
+  protected abstract boolean validate(String line);
+
+  /**
+   * Obtiene el tipo de validación que se debe aplicar a una línea de código.
+   *
+   * @return Tipo de validación que se debe aplicar a la línea.
+   */
+  protected abstract TypeVerifier getValidationType();
 }

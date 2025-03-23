@@ -1,5 +1,8 @@
 package mantenimiento.codecounter.interfaces;
 
+import java.util.List;
+import mantenimiento.codecounter.utils.TypeVerifier;
+
 /**
  * Define un manejador para la validación lógica de código fuente. Permite establecer una cadena de
  * responsabilidad entre validadores.
@@ -20,4 +23,13 @@ public interface LogicalValidatorHandler {
    *     contrario.
    */
   public boolean isValid(String linesOfCode);
+
+  /**
+   * Obtiene los tipos de validación que se deben aplicar a una línea de código.
+   *
+   * @param line Línea de código a validar.
+   * @return Lista de tipos de validación que se deben aplicar a la línea.
+   * @see TypeVerifier
+   */
+  List<TypeVerifier> getValidationTypes(String line);
 }
