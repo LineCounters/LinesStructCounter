@@ -7,10 +7,9 @@ public interface LogicalValidatorFactory {
 
   /**
    * Valida si la línea de código corresponde a una declaración de tipo
-   * 
+   *
    * @param linesOfCode
    * @return
    */
   public boolean validateType(String linesOfCode);
-
 }

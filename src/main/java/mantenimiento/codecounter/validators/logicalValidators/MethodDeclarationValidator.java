@@ -30,7 +30,7 @@ public class MethodDeclarationValidator implements LogicalValidatorFactory {
    */
   @Override
   public boolean validateType(String lineOfCode) {
-    return isMethodDeclaration(lineOfCode) ;
+    return isMethodDeclaration(lineOfCode);
   }
 
   /**
