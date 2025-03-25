@@ -6,13 +6,13 @@ import mantenimiento.codecounter.exceptions.InvalidFormatException;
  * Interfaz que define un manejador para la validación de formato en archivos. Permite establecer
  * una cadena de responsabilidad entre validadores.
  */
-public interface FormatValidatorHandler {
+public interface FormatValidatorChain {
   /**
    * Establece el siguiente validador en la cadena de validación.
    *
    * @param nextFormatValidator Siguiente validador de formato en la cadena.
    */
-  public void setNextValidator(FormatValidatorHandler nextFormatValidator);
+  public void setNextValidator(FormatValidatorChain nextFormatValidator);
 
   /**
    * Verifica si una línea del archivo cumple con el formato esperado.

@@ -1,13 +1,14 @@
 package mantenimiento.codecounter.validators.logicalValidators;
 
-import mantenimiento.codecounter.interfaces.LogicalValidatorHandler;
+import mantenimiento.codecounter.interfaces.LogicalValidatorFactory;
+import mantenimiento.codecounter.interfaces.LogicalValidatorFactory;
 
 /**
  * Proporciona una implementación base para la validación lógica de código. Implementa la interfaz
  * {@link LogicalValidatorHandler} y permite encadenar validadores.
  */
-public abstract class LogicalValidator implements LogicalValidatorHandler {
-  private LogicalValidatorHandler nextValidator;
+public abstract class LogicalValidator implements LogicalValidatorFactory{
+  private LogicalValidatorFactory nextValidator;
 
   /**
    * Establece el siguiente validador en la cadena de validación lógica.
@@ -15,7 +16,7 @@ public abstract class LogicalValidator implements LogicalValidatorHandler {
    * @param nextLogicalValidator Siguiente validador lógico en la cadena.
    */
   @Override
-  public void setNextValidator(LogicalValidatorHandler nextLogicalValidator) {
+  public void setNextValidator(LogicalValidatorFactory nextLogicalValidator) {
     this.nextValidator = nextLogicalValidator;
   }
 
