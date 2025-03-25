@@ -1,5 +1,7 @@
 package mantenimiento.codecounter.validators;
 
+import java.util.List;
+
 import mantenimiento.codecounter.interfaces.FormatValidatorChain;
 import mantenimiento.codecounter.interfaces.LogicalValidatorFactory;
 import mantenimiento.codecounter.interfaces.LogicalValidatorFactory;
@@ -44,19 +46,16 @@ public class ValidatorManager {
    *
    * @return Encadenamiento de validadores de líneas lógicas
    */
-  public static LogicalValidatorFactory getLogicalValidator() {
-    if (logicalValidator != null) {
-      return logicalValidator;
+  public static LogicalValidatorFactory getLogicalValidators(String lineOfCode) {
+
+    final List<LogicalValidatorFactory> logicalValidators = List.of(new MethodDeclarationValidator(),
+        new TypeDeclarationValidator());
+    if (lineOfCode == null || lineOfCode.isBlank()) {
+      return null;
     }
-
-
-    LogicalValidatorFactory typeDeclarationValidator = new TypeDeclarationValidator();
-    LogicalValidatorFactory methodDeclarationValidator = new MethodDeclarationValidator();
-   
-
-    typeDeclarationValidator.setNextValidator(methodDeclarationValidator);
-   
-
-    return logicalValidator;
+    return logicalValidators.stream()
+        .filter(e -> e.validateType(lineOfCode))
+        .findFirst()
+        .orElse(null);
   }
 }

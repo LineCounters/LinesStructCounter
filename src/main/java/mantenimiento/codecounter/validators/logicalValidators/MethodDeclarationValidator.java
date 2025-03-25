@@ -5,11 +5,13 @@ import static mantenimiento.codecounter.constants.JavaRegextConstants.DATATYPE_D
 import static mantenimiento.codecounter.constants.JavaRegextConstants.FINAL_OR_STATIC_REGEX;
 import static mantenimiento.codecounter.constants.JavaRegextConstants.IDENTIFIER_DECLARATION_REGEX;
 
+import mantenimiento.codecounter.interfaces.LogicalValidatorFactory;
+
 /**
  * Clase que verifica si existe una declaración de un método para poder contabilizarlo como línea
  * lógica
  */
-public class MethodDeclarationValidator extends LogicalValidator {
+public class MethodDeclarationValidator implements LogicalValidatorFactory {
 
   private static final String METHOD_DECLARATION =
       "^(\\s*"
@@ -27,8 +29,8 @@ public class MethodDeclarationValidator extends LogicalValidator {
    * @return {@code true} si es declaración de método, {@code false} en caso contrario
    */
   @Override
-  public boolean isValid(String lineOfCode) {
-    return isMethodDeclaration(lineOfCode) || this.validateNext(lineOfCode);
+  public boolean validateType(String lineOfCode) {
+    return isMethodDeclaration(lineOfCode) ;
   }
 
   /**

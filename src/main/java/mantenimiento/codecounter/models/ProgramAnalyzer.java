@@ -80,18 +80,10 @@ public class ProgramAnalyzer {
    */
   private static LineCounter countLines(JavaFile javaFile) throws InvalidFormatException {
     FormatValidatorChain formatValidator = ValidatorManager.getFormatValidator();
-    LogicalValidatorFactory logicalValidator = ValidatorManager.getLogicalValidator();
     List<String> fileContent = javaFile.removeComments().removeBlankLines().getContent();
     LineCounter lineCounter = new LineCounter(javaFile.getFileName());
 
-    for (String line : fileContent) {
-      if (formatValidator.isValid(line.trim())) {
-        lineCounter.incrementPhysicalLineAmount();
-        if (logicalValidator.isValid(line)) {
-          lineCounter.incrementLogicalLineAmount();
-        }
-      }
-    }
+   
 
     return lineCounter;
   }
