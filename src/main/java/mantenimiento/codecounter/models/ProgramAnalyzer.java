@@ -8,11 +8,11 @@ import mantenimiento.codecounter.exceptions.FileNotFoundException;
 import mantenimiento.codecounter.exceptions.FolderNotFoundException;
 import mantenimiento.codecounter.exceptions.InvalidFormatException;
 import mantenimiento.codecounter.exceptions.JavaFilesNotFoundException;
-import mantenimiento.codecounter.interfaces.FormatValidatorChain;
 import mantenimiento.codecounter.models.reporters.Reporter;
 import mantenimiento.codecounter.models.reporters.TerminalReporter;
 import mantenimiento.codecounter.utils.JavaFilesScanner;
 import mantenimiento.codecounter.validators.ValidatorManager;
+import mantenimiento.codecounter.validators.formatValidators.FormatValidator;
 
 /**
  * Clase encargada de analizar archivos Java dentro de una carpeta, contando líneas de código
@@ -78,7 +78,8 @@ public class ProgramAnalyzer {
    * @throws InvalidFormatException Si alguna línea tiene un formato incorrecto.
    */
   private static LineCounter countLines(JavaFile javaFile) throws InvalidFormatException {
-    FormatValidatorChain formatValidator = ValidatorManager.getFormatValidator();
+    FormatValidator formatValidator = ValidatorManager.getFormatValidator();
+
     List<String> fileContent = javaFile.removeComments().removeBlankLines().getContent();
     LineCounter lineCounter = new LineCounter(javaFile.getFileName());
 

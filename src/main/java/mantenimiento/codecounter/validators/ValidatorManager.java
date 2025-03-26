@@ -1,8 +1,8 @@
 package mantenimiento.codecounter.validators;
 
 import java.util.List;
-import mantenimiento.codecounter.interfaces.FormatValidatorChain;
 import mantenimiento.codecounter.interfaces.LogicalValidatorFactory;
+import mantenimiento.codecounter.validators.formatValidators.FormatValidator;
 import mantenimiento.codecounter.validators.formatValidators.ImportValidator;
 import mantenimiento.codecounter.validators.formatValidators.SingleAnnotationValidator;
 import mantenimiento.codecounter.validators.formatValidators.SingleDeclarationValidator;
@@ -12,7 +12,7 @@ import mantenimiento.codecounter.validators.logicalValidators.TypeDeclarationVal
 
 /** Brinda el acceso a los validadores de formato o de líneas lógicas */
 public class ValidatorManager {
-  private static FormatValidatorChain formatValidator = null;
+  private static FormatValidator formatValidator = null;
   private static LogicalValidatorFactory logicalValidator = null;
 
   /**
@@ -20,16 +20,16 @@ public class ValidatorManager {
    *
    * @return Encadenamiento de validadores de format
    */
-  public static FormatValidatorChain getFormatValidator() {
+  public static FormatValidator getFormatValidator() {
 
     if (formatValidator != null) {
       return formatValidator;
     }
 
-    FormatValidatorChain importValidator = new ImportValidator();
-    FormatValidatorChain styleKAndRValidator = new StyleKAndRValidator();
-    FormatValidatorChain singleAnnotationValidator = new SingleAnnotationValidator();
-    FormatValidatorChain singleDeclarationValidator = new SingleDeclarationValidator();
+    FormatValidator importValidator = new ImportValidator();
+    FormatValidator styleKAndRValidator = new StyleKAndRValidator();
+    FormatValidator singleAnnotationValidator = new SingleAnnotationValidator();
+    FormatValidator singleDeclarationValidator = new SingleDeclarationValidator();
 
     importValidator.setNextValidator(styleKAndRValidator);
     styleKAndRValidator.setNextValidator(singleAnnotationValidator);

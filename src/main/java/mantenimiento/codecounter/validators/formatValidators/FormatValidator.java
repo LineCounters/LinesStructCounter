@@ -1,25 +1,22 @@
 package mantenimiento.codecounter.validators.formatValidators;
 
 import mantenimiento.codecounter.exceptions.InvalidFormatException;
-import mantenimiento.codecounter.interfaces.FormatValidatorChain;
 
-/**
- * Proporciona una implementación base para la validación de formato del código. Implementa la
- * interfaz {@link FormatValidatorHandler} y permite encadenar validadores.
- */
-public abstract class FormatValidator implements FormatValidatorChain {
+/** Proporciona una implementación base para la validación de formato del código. */
+public abstract class FormatValidator {
 
-  private FormatValidatorChain nextValidator;
+  private FormatValidator nextValidator;
 
   /**
    * Establece el siguiente validador en la cadena de validación lógica.
    *
    * @param nextLogicalValidator Siguiente validador lógico en la cadena.
    */
-  @Override
-  public void setNextValidator(FormatValidatorChain nextFormatValidator) {
+  public void setNextValidator(FormatValidator nextFormatValidator) {
     this.nextValidator = nextFormatValidator;
   }
+
+  public abstract boolean isValid(String lineOfFile) throws InvalidFormatException;
 
   /**
    * Valida la siguiente regla en la cadena de responsabilidad.
