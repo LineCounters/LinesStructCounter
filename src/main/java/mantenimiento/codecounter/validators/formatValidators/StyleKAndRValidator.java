@@ -3,6 +3,7 @@ package mantenimiento.codecounter.validators.formatValidators;
 import static mantenimiento.codecounter.constants.ReasonInvalidFormat.INVALID_STYLE_K_AND_R;
 
 import mantenimiento.codecounter.exceptions.InvalidFormatException;
+import mantenimiento.codecounter.templates.FormatValidator;
 
 /** Clase que valida si se cumple el formato de uso de llaves K&R */
 public class StyleKAndRValidator extends FormatValidator {

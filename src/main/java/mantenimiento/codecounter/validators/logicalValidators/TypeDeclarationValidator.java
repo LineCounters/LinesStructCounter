@@ -3,11 +3,13 @@ package mantenimiento.codecounter.validators.logicalValidators;
 import static mantenimiento.codecounter.constants.JavaRegextConstants.ACCESS_MODIFIERS_REGEX;
 import static mantenimiento.codecounter.constants.JavaRegextConstants.TYPE_KEYS;
 
+import mantenimiento.codecounter.templates.LogicalValidator;
+
 /**
  * Clase que verifica si existe una declaración de tipo (class, interface, enum) para poder
  * contabilizarlo como línea lógica
  */
-public class TypeDeclarationValidator extends LogicalValidator {
+public class TypeDeclarationValidator implements LogicalValidator {
 
   private static final String TYPE_DECLARATION =
       "^(\\s*" + ACCESS_MODIFIERS_REGEX + ".*\\s*" + TYPE_KEYS + ".*)";
@@ -21,8 +23,8 @@ public class TypeDeclarationValidator extends LogicalValidator {
    *     contrario
    */
   @Override
-  public boolean isValid(String linesOfCode) {
-    return isTypeDeclaration(linesOfCode) || this.validateNext(linesOfCode);
+  public boolean validateType(String linesOfCode) {
+    return isTypeDeclaration(linesOfCode);
   }
 
   /**
