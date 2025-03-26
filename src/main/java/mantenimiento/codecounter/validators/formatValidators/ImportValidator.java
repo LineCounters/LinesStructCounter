@@ -3,6 +3,7 @@ package mantenimiento.codecounter.validators.formatValidators;
 import static mantenimiento.codecounter.constants.ReasonInvalidFormat.INVALID_IMPORT_STATEMENT;
 
 import mantenimiento.codecounter.exceptions.InvalidFormatException;
+import mantenimiento.codecounter.templates.FormatValidator;
 
 /**
  * Clase que valida si la importacion de un paquete tiene un comodin y lanza una excepcion en caso

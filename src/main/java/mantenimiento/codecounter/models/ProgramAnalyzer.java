@@ -10,9 +10,9 @@ import mantenimiento.codecounter.exceptions.InvalidFormatException;
 import mantenimiento.codecounter.exceptions.JavaFilesNotFoundException;
 import mantenimiento.codecounter.models.reporters.Reporter;
 import mantenimiento.codecounter.models.reporters.TerminalReporter;
+import mantenimiento.codecounter.templates.FormatValidator;
 import mantenimiento.codecounter.utils.JavaFilesScanner;
 import mantenimiento.codecounter.validators.ValidatorManager;
-import mantenimiento.codecounter.validators.formatValidators.FormatValidator;
 
 /**
  * Clase encargada de analizar archivos Java dentro de una carpeta, contando líneas de código

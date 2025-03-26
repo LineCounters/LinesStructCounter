@@ -1,4 +1,4 @@
-package mantenimiento.codecounter.validators.formatValidators;
+package mantenimiento.codecounter.templates;
 
 import mantenimiento.codecounter.exceptions.InvalidFormatException;
 

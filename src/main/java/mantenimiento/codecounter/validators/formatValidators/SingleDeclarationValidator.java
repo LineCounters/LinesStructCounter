@@ -3,6 +3,7 @@ package mantenimiento.codecounter.validators.formatValidators;
 import static mantenimiento.codecounter.constants.ReasonInvalidFormat.INVALID_SINGLE_DECLARATION_STATEMENT;
 
 import mantenimiento.codecounter.exceptions.InvalidFormatException;
+import mantenimiento.codecounter.templates.FormatValidator;
 
 /** Clase que valida si existe una sola variable declarada por línea ejemplo: int value = 10; */
 public class SingleDeclarationValidator extends FormatValidator {

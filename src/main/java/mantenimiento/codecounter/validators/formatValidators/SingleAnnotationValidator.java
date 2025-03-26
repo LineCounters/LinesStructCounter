@@ -4,6 +4,7 @@ import static mantenimiento.codecounter.constants.JavaRegextConstants.ANNOTATION
 import static mantenimiento.codecounter.constants.ReasonInvalidFormat.INVALID_ANOTATION_STATEMENT;
 
 import mantenimiento.codecounter.exceptions.InvalidFormatException;
+import mantenimiento.codecounter.templates.FormatValidator;
 
 /**
  * Clase encargada de verificar si una línea contiene una anotación válida en el formato correcto,

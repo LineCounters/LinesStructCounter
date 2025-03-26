@@ -1,8 +1,8 @@
 package mantenimiento.codecounter.validators;
 
 import java.util.List;
-import mantenimiento.codecounter.interfaces.LogicalValidatorFactory;
-import mantenimiento.codecounter.validators.formatValidators.FormatValidator;
+import mantenimiento.codecounter.templates.FormatValidator;
+import mantenimiento.codecounter.templates.LogicalValidator;
 import mantenimiento.codecounter.validators.formatValidators.ImportValidator;
 import mantenimiento.codecounter.validators.formatValidators.SingleAnnotationValidator;
 import mantenimiento.codecounter.validators.formatValidators.SingleDeclarationValidator;
@@ -13,7 +13,7 @@ import mantenimiento.codecounter.validators.logicalValidators.TypeDeclarationVal
 /** Brinda el acceso a los validadores de formato o de líneas lógicas */
 public class ValidatorManager {
   private static FormatValidator formatValidator = null;
-  private static LogicalValidatorFactory logicalValidator = null;
+  private static LogicalValidator logicalValidator = null;
 
   /**
    * Genera la secuencia de validaciones de formato
@@ -44,9 +44,9 @@ public class ValidatorManager {
    *
    * @return Encadenamiento de validadores de líneas lógicas
    */
-  public static LogicalValidatorFactory getLogicalValidators(String lineOfCode) {
+  public static LogicalValidator getLogicalValidators(String lineOfCode) {
 
-    final List<LogicalValidatorFactory> logicalValidators =
+    final List<LogicalValidator> logicalValidators =
         List.of(new MethodDeclarationValidator(), new TypeDeclarationValidator());
     if (lineOfCode == null || lineOfCode.isBlank()) {
       return null;
