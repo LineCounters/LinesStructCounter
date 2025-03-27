@@ -1,14 +1,14 @@
 package mantenimiento.codecounter;
 
 import java.util.Scanner;
-import mantenimiento.codecounter.models.ProgramAnalyzer;
+import mantenimiento.codecounter.models.ProgramBuilder;
 
 public class Main {
 
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
 
-    ProgramAnalyzer.analyzeProgram(requestFolderPath(scanner));
+    ProgramBuilder.buildProgram(requestFolderPath(scanner));
 
     System.out.println("\nPresiona Enter para salir...");
     scanner.nextLine();

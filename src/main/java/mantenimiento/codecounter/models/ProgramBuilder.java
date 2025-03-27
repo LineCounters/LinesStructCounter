@@ -19,14 +19,14 @@ import mantenimiento.codecounter.validators.ValidatorManager;
  * Clase encargada de analizar archivos Java dentro de una carpeta, contando líneas de código
  * físicas y lógicas, y generando un reporte con los resultados.
  */
-public class ProgramAnalyzer {
+public class ProgramBuilder {
   /**
    * Analiza los archivos Java dentro de la carpeta especificada, contando líneas de código y
    * generando un reporte con los resultados.
    *
    * @param folderPath Ruta de la carpeta que contiene los archivos Java.
    */
-  public static void analyzeProgram(String folderPath) {
+  public static void buildProgram(String folderPath) {
     try {
       List<Path> javaFilePaths = JavaFilesScanner.getJavaFiles(folderPath);
       List<StructCounter> lineCounters = processFiles(javaFilePaths);
@@ -60,7 +60,7 @@ public class ProgramAnalyzer {
       JavaFile javaFile = new JavaFile(filePath);
 
       try {
-        lineCounters.add(countLines(javaFile));
+        lineCounters.add(processLines(javaFile));
       } catch (InvalidFormatException e) {
         e.setFileName(filePath.getFileName().toString());
         throw e;
@@ -78,7 +78,7 @@ public class ProgramAnalyzer {
    * @param lineCounter Contador de líneas donde se almacenan los resultados.
    * @throws InvalidFormatException Si alguna línea tiene un formato incorrecto.
    */
-  private static StructCounter countLines(JavaFile javaFile) throws InvalidFormatException {
+  private static StructCounter processLines(JavaFile javaFile) throws InvalidFormatException {
     FormatValidator formatValidator = ValidatorManager.getFormatValidator();
 
     List<String> fileContent = javaFile.removeComments().removeBlankLines().getContent();
