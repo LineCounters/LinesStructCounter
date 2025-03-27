@@ -8,6 +8,7 @@ import mantenimiento.codecounter.exceptions.FileNotFoundException;
 import mantenimiento.codecounter.exceptions.FolderNotFoundException;
 import mantenimiento.codecounter.exceptions.InvalidFormatException;
 import mantenimiento.codecounter.exceptions.JavaFilesNotFoundException;
+import mantenimiento.codecounter.models.counters.StructCounter;
 import mantenimiento.codecounter.models.reporters.Reporter;
 import mantenimiento.codecounter.models.reporters.TerminalReporter;
 import mantenimiento.codecounter.templates.FormatValidator;
@@ -28,7 +29,7 @@ public class ProgramAnalyzer {
   public static void analyzeProgram(String folderPath) {
     try {
       List<Path> javaFilePaths = JavaFilesScanner.getJavaFiles(folderPath);
-      List<LineCounter> lineCounters = processFiles(javaFilePaths);
+      List<StructCounter> lineCounters = processFiles(javaFilePaths);
       generateReport(folderPath, lineCounters);
     } catch (FolderNotFoundException e) {
       System.out.println(e.getMessage());
@@ -50,10 +51,10 @@ public class ProgramAnalyzer {
    * @throws FileNotFoundException Si alguno de los archivos no se encuentra.
    * @throws InvalidFormatException Si se encuentra un error de formato en algún archivo.
    */
-  private static List<LineCounter> processFiles(List<Path> javaFilePaths)
+  private static List<StructCounter> processFiles(List<Path> javaFilePaths)
       throws FileNotFoundException, InvalidFormatException {
 
-    List<LineCounter> lineCounters = new ArrayList<>();
+    List<StructCounter> lineCounters = new ArrayList<>();
 
     for (Path filePath : javaFilePaths) {
       JavaFile javaFile = new JavaFile(filePath);
@@ -77,11 +78,11 @@ public class ProgramAnalyzer {
    * @param lineCounter Contador de líneas donde se almacenan los resultados.
    * @throws InvalidFormatException Si alguna línea tiene un formato incorrecto.
    */
-  private static LineCounter countLines(JavaFile javaFile) throws InvalidFormatException {
+  private static StructCounter countLines(JavaFile javaFile) throws InvalidFormatException {
     FormatValidator formatValidator = ValidatorManager.getFormatValidator();
 
     List<String> fileContent = javaFile.removeComments().removeBlankLines().getContent();
-    LineCounter lineCounter = new LineCounter(javaFile.getFileName());
+    StructCounter lineCounter = new StructCounter(javaFile.getFileName());
 
     return lineCounter;
   }
@@ -92,7 +93,7 @@ public class ProgramAnalyzer {
    * @param folderPath Ruta de la carpeta analizada.
    * @param lineCounter Contador de líneas de código con los resultados del análisis.
    */
-  private static void generateReport(String folderPath, List<LineCounter> lineCounters) {
+  private static void generateReport(String folderPath, List<StructCounter> lineCounters) {
     Reporter reporter = new TerminalReporter(Paths.get(folderPath), lineCounters);
     reporter.generateReport();
   }

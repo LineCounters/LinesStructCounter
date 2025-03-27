@@ -2,12 +2,12 @@ package mantenimiento.codecounter.models.reporters;
 
 import java.nio.file.Path;
 import java.util.List;
-import mantenimiento.codecounter.models.LineCounter;
+import mantenimiento.codecounter.models.counters.StructCounter;
 
 /** Clase que genera un reporte en la terminal */
 public class TerminalReporter extends Reporter {
 
-  public TerminalReporter(Path filePath, List<LineCounter> lineCounter) {
+  public TerminalReporter(Path filePath, List<StructCounter> lineCounter) {
     super(filePath, lineCounter);
   }
 
@@ -38,12 +38,8 @@ public class TerminalReporter extends Reporter {
    * analizado
    */
   private void printBody() {
-    for (LineCounter lineCounter : this.lineCounters) {
-      System.out.printf(
-          " %-40s  %-15d  %-15d \n",
-          lineCounter.getFileName(),
-          lineCounter.getPhysicalLineAmount(),
-          lineCounter.getLogicalLineAmount());
+    for (StructCounter lineCounter : this.lineCounters) {
+      System.out.printf(" %-40s  %-15d  %-15d \n", lineCounter.getFileName());
     }
     System.out.println(
         "----------------------------------------------------------------------------");

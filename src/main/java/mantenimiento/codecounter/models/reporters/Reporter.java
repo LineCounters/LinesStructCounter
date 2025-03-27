@@ -2,14 +2,14 @@ package mantenimiento.codecounter.models.reporters;
 
 import java.nio.file.Path;
 import java.util.List;
-import mantenimiento.codecounter.models.LineCounter;
+import mantenimiento.codecounter.models.counters.StructCounter;
 
 /** Clase abstracta que define el comportamiento de un generador de reportes */
 public abstract class Reporter {
   protected String programName;
-  protected List<LineCounter> lineCounters;
+  protected List<StructCounter> lineCounters;
 
-  public Reporter(Path filePath, List<LineCounter> lineCounters) {
+  public Reporter(Path filePath, List<StructCounter> lineCounters) {
     this.programName = filePath.getFileName().toString();
     this.lineCounters = lineCounters;
   }
