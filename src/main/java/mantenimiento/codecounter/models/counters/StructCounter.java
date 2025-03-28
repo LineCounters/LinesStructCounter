@@ -12,12 +12,12 @@ public class StructCounter extends LineCounter {
   }
 
   /** Incrementa el contador de clases en 1. */
-  public void incrementClassesAmount() {
+  public void incrementClassCount() {
     this.classAmount++;
   }
 
   /** Incrementa el contador de métodos en 1. */
-  public void incrementMethodsAmount() {
+  public void incrementMethodCount() {
     this.methodsAmount++;
   }
 
@@ -26,7 +26,7 @@ public class StructCounter extends LineCounter {
    *
    * @return Cantidad de clases.
    */
-  public int getClassesAmount() {
+  public int getClassCount() {
     return this.classAmount;
   }
 
@@ -35,7 +35,7 @@ public class StructCounter extends LineCounter {
    *
    * @return Cantidad de métodos.
    */
-  public int getMethodsAmount() {
+  public int getMethodsCount() {
     return this.methodsAmount;
   }
 }

@@ -18,7 +18,7 @@ public class LineCounter {
     return physicalLineCount;
   }
 
-  public void setPhysicalLineCount(int physicalLineCount) {
-    this.physicalLineCount = physicalLineCount;
+  public void incrementPhysicalLineCount() {
+    this.physicalLineCount++;
   }
 }
