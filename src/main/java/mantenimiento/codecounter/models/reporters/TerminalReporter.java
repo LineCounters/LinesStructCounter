@@ -2,12 +2,12 @@ package mantenimiento.codecounter.models.reporters;
 
 import java.nio.file.Path;
 import java.util.List;
-import mantenimiento.codecounter.models.LineCounter;
+import mantenimiento.codecounter.models.counters.StructCounter;
 
 /** Clase que genera un reporte en la terminal */
 public class TerminalReporter extends Reporter {
 
-  public TerminalReporter(Path filePath, List<LineCounter> lineCounter) {
+  public TerminalReporter(Path filePath, List<StructCounter> lineCounter) {
     super(filePath, lineCounter);
   }
 
@@ -24,13 +24,13 @@ public class TerminalReporter extends Reporter {
    */
   private void printHeader() {
     System.out.println(
-        "----------------------------------------------------------------------------");
+        "-------------------------------------------------------------------------------------------");
     System.out.println("Programa: " + this.programName);
     System.out.println(
-        "----------------------------------------------------------------------------");
-    System.out.printf(" %-40s  %-15s  %-15s \n", "Archivo", "Líneas Físicas", "Líneas Lógicas");
+        "-------------------------------------------------------------------------------------------");
+    System.out.printf(" %-40s  %-15s  %-15s  %-15s \n", "Archivo", "Clases", "Métodos", "Lineas");
     System.out.println(
-        "----------------------------------------------------------------------------");
+        "-------------------------------------------------------------------------------------------");
   }
 
   /**
@@ -38,14 +38,18 @@ public class TerminalReporter extends Reporter {
    * analizado
    */
   private void printBody() {
-    for (LineCounter lineCounter : this.lineCounters) {
+    for (StructCounter lineCounter : this.lineCounters) {
       System.out.printf(
-          " %-40s  %-15d  %-15d \n",
+          " %-40s  %-15d  %-15d  %-15d \n",
           lineCounter.getFileName(),
-          lineCounter.getPhysicalLineAmount(),
-          lineCounter.getLogicalLineAmount());
+          lineCounter.getClassCount(),
+          lineCounter.getMethodsCount(),
+          lineCounter.getPhysicalLineCount());
     }
+    int totalPhysicalLines =
+        lineCounters.stream().mapToInt(StructCounter::getPhysicalLineCount).sum();
     System.out.println(
-        "----------------------------------------------------------------------------");
+        "-------------------------------------------------------------------------------------------");
+    System.out.printf(" %-40s  %-15s  %-15s  %-15s  \n", "Lineas totales:", "", totalPhysicalLines);
   }
 }

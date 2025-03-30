@@ -42,7 +42,7 @@ public class ValidatorManager {
   /**
    * Genera la secuencia de validaciones de líneas lógicas
    *
-   * @return Encadenamiento de validadores de líneas lógicas
+   * @return Lista de validadores lógicos
    */
   public static LogicalValidator getLogicalValidators(String lineOfCode) {
 
