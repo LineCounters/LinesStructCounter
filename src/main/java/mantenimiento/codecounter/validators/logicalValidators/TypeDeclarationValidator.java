@@ -34,6 +34,6 @@ public class TypeDeclarationValidator implements LogicalValidator {
    * @return {@code true} si coincide con la declaracion, {@code false} en caso contrario
    */
   private boolean isTypeDeclaration(String line) {
-    return line.matches(TYPE_DECLARATION);
+    return line.matches(TYPE_DECLARATION) && !line.contains("\"");
   }
 }

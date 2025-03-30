@@ -40,6 +40,8 @@ public class MethodDeclarationValidator implements LogicalValidator {
    * @return {@code true} si es declaración de método, {@code false} en caso contrario
    */
   private boolean isMethodDeclaration(String lineOfCode) {
-    return lineOfCode.matches(METHOD_DECLARATION) && !lineOfCode.contains(";");
+    return lineOfCode.matches(METHOD_DECLARATION)
+        && !lineOfCode.contains(";")
+        && !lineOfCode.contains("\"");
   }
 }
