@@ -40,3 +40,5 @@ Thumbs.db
 # Archivos de Maven wrapper (si estás usando el wrapper de Maven)
 mvnw
 mvnw.cmd
+
+env

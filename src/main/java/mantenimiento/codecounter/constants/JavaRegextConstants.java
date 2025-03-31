@@ -17,4 +17,6 @@ public class JavaRegextConstants {
   public static final String FINAL_OR_STATIC_REGEX =
       "(?:(?:static\\s+)?(?:final\\s+)?|(?:final\\s+)?(?:static\\s+)?)?";
   public static final String ANNOTATION_REGEX = "^@[A-Za-z_]\\w*(\\(.*\\))?\\s*$";
+
+  private JavaRegextConstants() {}
 }

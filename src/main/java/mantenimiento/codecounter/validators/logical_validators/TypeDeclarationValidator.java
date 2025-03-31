@@ -1,4 +1,4 @@
-package mantenimiento.codecounter.validators.logicalValidators;
+package mantenimiento.codecounter.validators.logical_validators;
 
 import static mantenimiento.codecounter.constants.JavaRegextConstants.ACCESS_MODIFIERS_REGEX;
 import static mantenimiento.codecounter.constants.JavaRegextConstants.TYPE_KEYS;

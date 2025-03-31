@@ -44,4 +44,6 @@ public class JavaFilesScanner {
   private static Predicate<Path> isJavaFile() {
     return fileName -> fileName.toString().endsWith(".java");
   }
+
+  private JavaFilesScanner() {}
 }

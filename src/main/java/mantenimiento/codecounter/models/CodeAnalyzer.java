@@ -3,8 +3,8 @@ package mantenimiento.codecounter.models;
 import mantenimiento.codecounter.models.counters.StructCounter;
 import mantenimiento.codecounter.templates.LogicalValidator;
 import mantenimiento.codecounter.validators.ValidatorManager;
-import mantenimiento.codecounter.validators.logicalValidators.MethodDeclarationValidator;
-import mantenimiento.codecounter.validators.logicalValidators.TypeDeclarationValidator;
+import mantenimiento.codecounter.validators.logical_validators.MethodDeclarationValidator;
+import mantenimiento.codecounter.validators.logical_validators.TypeDeclarationValidator;
 
 /** Clase encargada de procesar las lineas, contando líneas de código físicas, métodos y clases. */
 public class CodeAnalyzer {

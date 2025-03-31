@@ -1,4 +1,4 @@
-package mantenimiento.codecounter.validators.formatValidators;
+package mantenimiento.codecounter.validators.format_validators;
 
 import static mantenimiento.codecounter.constants.ReasonInvalidFormat.INVALID_STYLE_K_AND_R;
 

@@ -4,7 +4,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import mantenimiento.codecounter.exceptions.FileNotFoundException;
 
 /**
@@ -39,7 +38,7 @@ public class JavaFile {
     String fileContent = String.join("\n", this.content);
     String codeWithOutComments = fileContent.replaceAll(commentRegext, "");
 
-    this.content = new ArrayList<String>(List.of(codeWithOutComments.split("\n")));
+    this.content = new ArrayList<>(List.of(codeWithOutComments.split("\n")));
 
     return this;
   }
@@ -58,7 +57,7 @@ public class JavaFile {
    * @return Contenido del archivo java
    */
   public List<String> getContent() {
-    return this.content.stream().map(String::trim).collect(Collectors.toList());
+    return this.content.stream().map(String::trim).toList();
   }
 
   /**

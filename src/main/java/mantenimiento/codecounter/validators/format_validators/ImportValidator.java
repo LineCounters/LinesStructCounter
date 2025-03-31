@@ -1,4 +1,4 @@
-package mantenimiento.codecounter.validators.formatValidators;
+package mantenimiento.codecounter.validators.format_validators;
 
 import static mantenimiento.codecounter.constants.ReasonInvalidFormat.INVALID_IMPORT_STATEMENT;
 
@@ -51,7 +51,7 @@ public class ImportValidator extends FormatValidator {
    * @return {@code true} si el import es con comodin, {@code false} si no corresponde
    */
   private boolean isImportWithWildcard(String lineOfCode) {
-    String wildcardImportRegex = "^import\\s+(static\\s+)?(\\w+\\.\\s*)+\\*\\s*;";
+    String wildcardImportRegex = "^import\\s+(static\\s+)?(?:\\w+\\.\\s*){1,10}\\*\\s*;";
     return lineOfCode.matches(wildcardImportRegex);
   }
 }

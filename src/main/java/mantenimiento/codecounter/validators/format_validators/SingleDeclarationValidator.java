@@ -1,4 +1,4 @@
-package mantenimiento.codecounter.validators.formatValidators;
+package mantenimiento.codecounter.validators.format_validators;
 
 import static mantenimiento.codecounter.constants.ReasonInvalidFormat.INVALID_SINGLE_DECLARATION_STATEMENT;
 
@@ -8,7 +8,7 @@ import mantenimiento.codecounter.templates.FormatValidator;
 /** Clase que valida si existe una sola variable declarada por línea ejemplo: int value = 10; */
 public class SingleDeclarationValidator extends FormatValidator {
   private static final String MULTIPLE_DECLARATIONS_REGEX =
-      "^\\s*([\\w\\s\\.=\\*&%\\+-/\\^]+(;|,)){2,}\\s*";
+      "^\\s*\\w+[\\s.=*&%+\\-/^\\w]*[;,][\\s.=*&%+\\-/^\\w]*[;,].*$";
 
   /**
    * Realiza la validacion del formato verificando si existe una sola declaración por línea

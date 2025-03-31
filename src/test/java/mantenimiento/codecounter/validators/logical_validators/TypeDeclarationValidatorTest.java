@@ -1,4 +1,4 @@
-package mantenimiento.codecounter.validators.logicalValidators;
+package mantenimiento.codecounter.validators.logical_validators;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

@@ -5,9 +5,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import mantenimiento.codecounter.exceptions.FileNotFoundException;
-import mantenimiento.codecounter.exceptions.FolderNotFoundException;
 import mantenimiento.codecounter.exceptions.InvalidFormatException;
-import mantenimiento.codecounter.exceptions.JavaFilesNotFoundException;
 import mantenimiento.codecounter.models.counters.StructCounter;
 import mantenimiento.codecounter.models.reporters.Reporter;
 import mantenimiento.codecounter.models.reporters.TerminalReporter;
@@ -29,14 +27,8 @@ public class ProgramBuilder {
       List<Path> javaFilePaths = JavaFilesScanner.getJavaFiles(folderPath);
       List<StructCounter> lineCounters = processFiles(javaFilePaths);
       generateReport(folderPath, lineCounters);
-    } catch (FolderNotFoundException e) {
-      System.out.println(e.getMessage());
-    } catch (JavaFilesNotFoundException e) {
-      System.out.println(e.getMessage());
-    } catch (InvalidFormatException e) {
-      System.out.println("Error de formato en archivo: " + e.getFileName());
-      System.out.println("Razon: " + e.getMessage());
     } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }
 
@@ -50,19 +42,14 @@ public class ProgramBuilder {
    * @throws InvalidFormatException Si se encuentra un error de formato en algún archivo.
    */
   private static List<StructCounter> processFiles(List<Path> javaFilePaths)
-      throws FileNotFoundException, InvalidFormatException {
+      throws FileNotFoundException {
 
     List<StructCounter> lineCounters = new ArrayList<>();
 
     for (Path filePath : javaFilePaths) {
       JavaFile javaFile = new JavaFile(filePath);
 
-      try {
-        lineCounters.add(processLines(javaFile));
-      } catch (InvalidFormatException e) {
-        e.setFileName(filePath.getFileName().toString());
-        throw e;
-      }
+      lineCounters.add(processLines(javaFile));
     }
     return lineCounters;
   }
@@ -76,7 +63,7 @@ public class ProgramBuilder {
    * @param lineCounter Contador de líneas donde se almacenan los resultados.
    * @throws InvalidFormatException Si alguna línea tiene un formato incorrecto.
    */
-  private static StructCounter processLines(JavaFile javaFile) throws InvalidFormatException {
+  private static StructCounter processLines(JavaFile javaFile) {
 
     List<String> fileContent = javaFile.removeComments().removeBlankLines().getContent();
     StructCounter lineCounter = new StructCounter(javaFile.getFileName());
@@ -99,4 +86,6 @@ public class ProgramBuilder {
     Reporter reporter = new TerminalReporter(Paths.get(folderPath), lineCounters);
     reporter.generateReport();
   }
+
+  private ProgramBuilder() {}
 }
