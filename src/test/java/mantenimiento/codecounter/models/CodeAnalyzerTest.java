@@ -19,7 +19,6 @@ class CodeAnalyzerTest {
         codeAnalyzer = new CodeAnalyzer(structCounter);
     }
 
-    
     @Test
     @DisplayName("Procesar línea: línea de comentario")
     void testProcessLine_CommentLine() throws InvalidFormatException {
