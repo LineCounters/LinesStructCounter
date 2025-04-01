@@ -31,6 +31,7 @@ public class StructCounter {
     }
   }
 
+  /** Añadir una línea lógica a la última clase registrada */
   public int getLinesOfCode() {
     int totalLines = 0;
     for (JavaClass javaClass : javaClasses) {
@@ -39,8 +40,18 @@ public class StructCounter {
     return totalLines;
   }
 
+  /** Devolver el total de clases */
   public int getClassesCount() {
     return javaClasses.size();
+  }
+
+  /** Devolver el total de métodos */
+  public int getMethodsCount() {
+    int totalMethods = 0;
+    for (JavaClass javaClass : javaClasses) {
+      totalMethods += javaClass.getMethodsAmount();
+    }
+    return totalMethods;
   }
 
   public void getClasses() {
