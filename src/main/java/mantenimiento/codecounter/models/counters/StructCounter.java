@@ -56,12 +56,10 @@ public class StructCounter {
 
   public void getClasses() {
     for (JavaClass javaClass : javaClasses) {
-      System.out.println(
-          javaClass.getClassName()
-              + " "
-              + javaClass.getMethodsAmount()
-              + " "
-              + javaClass.getLinesOfCode());
+      System.out.println("Class: " + javaClass.getClassName());
+      System.out.println("Methods: " + javaClass.getMethodsAmount());
+      System.out.println("Lines of Code: " + javaClass.getLinesOfCode());
+      System.out.println("-------------------------");
     }
   }
 }
