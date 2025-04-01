@@ -38,9 +38,6 @@ public class CodeAnalyzer {
    */
   public void processLine(String line) throws InvalidFormatException {
     String trimmedLine = preprocessLine(line);
-    if (trimmedLine == null) {
-      return;
-    }
     countLineForCurrentContext();
     DeclarationInfo declInfo = detectDeclarations(trimmedLine);
     processBracesAndUpdateContext(line, declInfo.potentialClassName());
