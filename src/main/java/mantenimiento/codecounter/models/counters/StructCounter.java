@@ -8,8 +8,7 @@ import mantenimiento.codecounter.models.JavaClass;
 /**
  * Clase que representa un contador de estructuras: Clases y métodos.
  * Mantiene una lista de objetos JavaClass y proporciona métodos para
- * incrementar sus contadores. Adaptado para trabajar con CodeAnalyzer
- * para manejar clases anidadas.
+ * incrementar sus contadores. 
  */
 public class StructCounter {
   private final List<JavaClass> javaClasses;
@@ -49,8 +48,6 @@ public class StructCounter {
 
   /**
    * Añade un método a la última clase registrada en la lista.
-   * Se asume que un método pertenece a la clase más recientemente abierta por el
-   * Analyzer.
    */
   public void addMethodToLastClass() {
     if (!javaClasses.isEmpty()) {
@@ -60,8 +57,6 @@ public class StructCounter {
 
   /**
    * Añade una línea física de código a la clase especificada por su nombre.
-   * Este es el método clave que debe usar CodeAnalyzer para contar correctamente
-   * las líneas en contextos de anidamiento.
    *
    * @param className El nombre de la clase a la que se debe añadir la línea.
    */
@@ -104,7 +99,6 @@ public class StructCounter {
 
   /**
    * Devuelve la lista completa de objetos JavaClass registrados.
-   * Se devuelve una copia para evitar modificaciones externas no deseadas.
    */
   public List<JavaClass> getClasses() {
     return new ArrayList<>(javaClasses);

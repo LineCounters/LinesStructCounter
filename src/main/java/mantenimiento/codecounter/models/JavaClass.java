@@ -59,9 +59,4 @@ public class JavaClass {
         JavaClass javaClass = (JavaClass) o;
         return className.equals(javaClass.className); 
     }
-
-    @Override
-    public int hashCode() {
-        return className.hashCode();
-    }
 }

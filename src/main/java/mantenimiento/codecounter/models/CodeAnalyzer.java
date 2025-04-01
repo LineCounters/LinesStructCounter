@@ -12,8 +12,7 @@ import java.util.Deque;
 
 /**
  * Analiza líneas de código Java para contar clases (anidadas incluidas),
- * métodos y líneas físicas, delegando el almacenamiento a un StructCounter.
- * Refactorizado para mejorar la legibilidad de processLine.
+ * métodos y líneas físicas.
  */
 public class CodeAnalyzer {
 
@@ -35,7 +34,7 @@ public class CodeAnalyzer {
   }
 
   /**
-   * Procesa una línea de código fuente. Orquesta el análisis llamando a métodos
+   * Procesa una línea de código fuente. Hace el análisis llamando a métodos
    * auxiliares.
    * 
    * @param line La línea de código a procesar.
@@ -59,7 +58,7 @@ public class CodeAnalyzer {
    * @param line Línea original.
    * @return La línea recortada, o null si debe ignorarse.
    */
-  private String preprocessLine(String line) {
+  String preprocessLine(String line) {
     String trimmedLine = line.trim();
     if (trimmedLine.isEmpty() || isCommentLine(trimmedLine)) {
       return null;
@@ -79,12 +78,6 @@ public class CodeAnalyzer {
     }
   }
 
-  /**
-   * Información sobre las declaraciones encontradas en una línea.
-   * Usamos un 'record' (Java 16+) para una estructura de datos simple e
-   * inmutable.
-   * Si usas Java < 16, puedes crear una clase interna estática simple.
-   */
   private record DeclarationInfo(boolean isType, boolean isMethod, String potentialClassName) {
   }
 
@@ -210,9 +203,4 @@ public class CodeAnalyzer {
   public StructCounter getCounter() {
     return counter;
   }
-
-  /**
-   * Realiza comprobaciones finales después de procesar todas las líneas.
-   */
-  
 }
