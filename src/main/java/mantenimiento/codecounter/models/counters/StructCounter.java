@@ -2,9 +2,15 @@ package mantenimiento.codecounter.models.counters;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import mantenimiento.codecounter.models.JavaClass;
 
-/** Clase que representa un contador de estructuras: Clase y método */
+/**
+ * Clase que representa un contador de estructuras: Clases y métodos.
+ * Mantiene una lista de objetos JavaClass y proporciona métodos para
+ * incrementar sus contadores. Adaptado para trabajar con CodeAnalyzer
+ * para manejar clases anidadas.
+ */
 public class StructCounter {
   private final List<JavaClass> javaClasses;
 
@@ -12,27 +18,67 @@ public class StructCounter {
     this.javaClasses = new ArrayList<>();
   }
 
-  /** Añadir una nueva clase */
+  /**
+   * Añade una nueva clase a la lista si no existe una con el mismo nombre.
+   * 
+   * @param className El nombre de la clase a añadir.
+   */
   public void addClass(String className) {
-    javaClasses.add(new JavaClass(className));
+    if (findClassByName(className).isEmpty()) {
+      javaClasses.add(new JavaClass(className));
+    }
   }
 
-  /** Añadir un método a la última clase registrada */
+  /**
+   * Busca una clase en la lista por su nombre.
+   * 
+   * @param className El nombre de la clase a buscar.
+   * @return Un Optional conteniendo la JavaClass si se encuentra, o un Optional
+   *         vacío si no.
+   */
+  private Optional<JavaClass> findClassByName(String className) {
+    if (className == null)
+      return Optional.empty();
+    for (JavaClass jc : javaClasses) {
+      if (className.equals(jc.getClassName())) {
+        return Optional.of(jc);
+      }
+    }
+    return Optional.empty();
+  }
+
+  /**
+   * Añade un método a la última clase registrada en la lista.
+   * Se asume que un método pertenece a la clase más recientemente abierta por el
+   * Analyzer.
+   */
   public void addMethodToLastClass() {
     if (!javaClasses.isEmpty()) {
       javaClasses.get(javaClasses.size() - 1).incrementMethodsAmount();
     }
   }
 
-  /** Añadir una línea física a la última clase registrada */
-  public void addLineToLastClass() {
-    if (!javaClasses.isEmpty()) {
-      javaClasses.get(javaClasses.size() - 1).incrementLinesOfCode();
+  /**
+   * Añade una línea física de código a la clase especificada por su nombre.
+   * Este es el método clave que debe usar CodeAnalyzer para contar correctamente
+   * las líneas en contextos de anidamiento.
+   *
+   * @param className El nombre de la clase a la que se debe añadir la línea.
+   */
+  public void addLineToClass(String className) {
+    Optional<JavaClass> targetClass = findClassByName(className);
+    if (targetClass.isPresent()) {
+      targetClass.get().incrementLinesOfCode();
+    } else {
+      throw new IllegalStateException("Clase no encontrada al intentar añadir línea: " + className);
     }
   }
 
-  /** Añadir una línea lógica a la última clase registrada */
-  public int getLinesOfCode() {
+  /**
+   * Devuelve el total de líneas de código sumando las de todas las clases
+   * registradas.
+   */
+  public int getTotalLinesOfCode() {
     int totalLines = 0;
     for (JavaClass javaClass : javaClasses) {
       totalLines += javaClass.getLinesOfCode();
@@ -40,13 +86,15 @@ public class StructCounter {
     return totalLines;
   }
 
-  /** Devolver el total de clases */
+  /** Devolver el número total de clases registradas. */
   public int getClassesCount() {
     return javaClasses.size();
   }
 
-  /** Devolver el total de métodos */
-  public int getMethodsCount() {
+  /**
+   * Devolver el total de métodos sumando los de todas las clases registradas.
+   */
+  public int getTotalMethodsCount() {
     int totalMethods = 0;
     for (JavaClass javaClass : javaClasses) {
       totalMethods += javaClass.getMethodsAmount();
@@ -54,8 +102,11 @@ public class StructCounter {
     return totalMethods;
   }
 
-  /** Devolver la lista de clases */
+  /**
+   * Devuelve la lista completa de objetos JavaClass registrados.
+   * Se devuelve una copia para evitar modificaciones externas no deseadas.
+   */
   public List<JavaClass> getClasses() {
-    return javaClasses;
+    return new ArrayList<>(javaClasses);
   }
 }

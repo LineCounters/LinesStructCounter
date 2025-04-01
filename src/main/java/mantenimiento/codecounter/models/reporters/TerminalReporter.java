@@ -28,7 +28,7 @@ public class TerminalReporter extends Reporter {
     System.out.println("Programa: " + this.programName);
     System.out.println(
         "---------------------------------------------------------------------------------");
-    System.out.printf(" %-40s  %-15s  %-15s \n", "Clases", "Métodos", "Lineas");
+    System.out.printf(" %-40s  %-15s  %-15s %n", "Clases", "Métodos", "Lineas");
     System.out.println(
         "---------------------------------------------------------------------------------");
   }
@@ -42,18 +42,17 @@ public class TerminalReporter extends Reporter {
       lineCounter
           .getClasses()
           .forEach(
-              javaClass -> {
+              javaClass -> 
                 System.out.printf(
-                    " %-40s  %-15d  %-15d \n",
+                    " %-40s  %-15d  %-15d %n",
                     javaClass.getClassName(),
                     javaClass.getMethodsAmount(),
-                    javaClass.getLinesOfCode());
-              });
+                    javaClass.getLinesOfCode()));
     }
 
-    int totalPhysicalLines = lineCounters.stream().mapToInt(StructCounter::getLinesOfCode).sum();
     System.out.println(
         "---------------------------------------------------------------------------------");
-    System.out.println("Total de líneas físicas: " + totalPhysicalLines);
+        int totalPhysicalLines = lineCounters.stream().mapToInt(StructCounter::getTotalLinesOfCode).sum();
+    System.out.println("Total de líneas físicas de código: " + totalPhysicalLines);
   }
 }
