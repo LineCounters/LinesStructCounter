@@ -15,7 +15,7 @@ class CodeAnalyzerTest {
 
   @BeforeEach
   void setUp() {
-    counter = new StructCounter("filename.java");
+    counter = new StructCounter();
     codeAnalyzer = new CodeAnalyzer(counter);
   }
 

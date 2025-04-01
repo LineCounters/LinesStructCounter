@@ -66,7 +66,7 @@ public class ProgramBuilder {
   private static StructCounter processLines(JavaFile javaFile) throws InvalidFormatException {
 
     List<String> fileContent = javaFile.removeComments().removeBlankLines().getContent();
-    StructCounter lineCounter = new StructCounter(javaFile.getFileName());
+    StructCounter lineCounter = new StructCounter();
     CodeAnalyzer analyzer = new CodeAnalyzer(lineCounter);
 
     for (String line : fileContent) {

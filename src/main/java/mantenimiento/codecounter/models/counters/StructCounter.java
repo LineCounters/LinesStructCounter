@@ -8,7 +8,7 @@ import mantenimiento.codecounter.models.JavaClass;
 public class StructCounter {
   private final List<JavaClass> javaClasses;
 
-  public StructCounter(String fileName) {
+  public StructCounter() {
     this.javaClasses = new ArrayList<>();
   }
 
@@ -54,12 +54,7 @@ public class StructCounter {
     return totalMethods;
   }
 
-  public void getClasses() {
-    for (JavaClass javaClass : javaClasses) {
-      System.out.println("Class: " + javaClass.getClassName());
-      System.out.println("Methods: " + javaClass.getMethodsAmount());
-      System.out.println("Lines of Code: " + javaClass.getLinesOfCode());
-      System.out.println("-------------------------");
-    }
+  public List<JavaClass> getClasses() {
+    return javaClasses;
   }
 }
