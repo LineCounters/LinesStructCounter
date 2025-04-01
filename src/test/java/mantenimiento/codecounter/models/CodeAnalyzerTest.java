@@ -1,6 +1,9 @@
 package mantenimiento.codecounter.models;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 import mantenimiento.codecounter.exceptions.InvalidFormatException;
 import mantenimiento.codecounter.models.counters.StructCounter;
