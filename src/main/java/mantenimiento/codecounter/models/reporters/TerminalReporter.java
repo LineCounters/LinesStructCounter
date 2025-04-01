@@ -42,17 +42,18 @@ public class TerminalReporter extends Reporter {
       lineCounter
           .getClasses()
           .forEach(
-              javaClass -> 
-                System.out.printf(
-                    " %-40s  %-15d  %-15d %n",
-                    javaClass.getClassName(),
-                    javaClass.getMethodsAmount(),
-                    javaClass.getLinesOfCode()));
+              javaClass ->
+                  System.out.printf(
+                      " %-40s  %-15d  %-15d %n",
+                      javaClass.getClassName(),
+                      javaClass.getMethodsAmount(),
+                      javaClass.getLinesOfCode()));
     }
 
     System.out.println(
         "---------------------------------------------------------------------------------");
-        int totalPhysicalLines = lineCounters.stream().mapToInt(StructCounter::getTotalLinesOfCode).sum();
+    int totalPhysicalLines =
+        lineCounters.stream().mapToInt(StructCounter::getTotalLinesOfCode).sum();
     System.out.println("Total de líneas físicas de código: " + totalPhysicalLines);
   }
 }

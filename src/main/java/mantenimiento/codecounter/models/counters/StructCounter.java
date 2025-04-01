@@ -6,9 +6,8 @@ import java.util.Optional;
 import mantenimiento.codecounter.models.JavaClass;
 
 /**
- * Clase que representa un contador de estructuras: Clases y métodos.
- * Mantiene una lista de objetos JavaClass y proporciona métodos para
- * incrementar sus contadores. 
+ * Clase que representa un contador de estructuras: Clases y métodos. Mantiene una lista de objetos
+ * JavaClass y proporciona métodos para incrementar sus contadores.
  */
 public class StructCounter {
   private final List<JavaClass> javaClasses;
@@ -19,7 +18,7 @@ public class StructCounter {
 
   /**
    * Añade una nueva clase a la lista si no existe una con el mismo nombre.
-   * 
+   *
    * @param className El nombre de la clase a añadir.
    */
   public void addClass(String className) {
@@ -30,14 +29,12 @@ public class StructCounter {
 
   /**
    * Busca una clase en la lista por su nombre.
-   * 
+   *
    * @param className El nombre de la clase a buscar.
-   * @return Un Optional conteniendo la JavaClass si se encuentra, o un Optional
-   *         vacío si no.
+   * @return Un Optional conteniendo la JavaClass si se encuentra, o un Optional vacío si no.
    */
   private Optional<JavaClass> findClassByName(String className) {
-    if (className == null)
-      return Optional.empty();
+    if (className == null) return Optional.empty();
     for (JavaClass jc : javaClasses) {
       if (className.equals(jc.getClassName())) {
         return Optional.of(jc);
@@ -46,9 +43,7 @@ public class StructCounter {
     return Optional.empty();
   }
 
-  /**
-   * Añade un método a la última clase registrada en la lista.
-   */
+  /** Añade un método a la última clase registrada en la lista. */
   public void addMethodToLastClass() {
     if (!javaClasses.isEmpty()) {
       javaClasses.get(javaClasses.size() - 1).incrementMethodsAmount();
@@ -69,10 +64,7 @@ public class StructCounter {
     }
   }
 
-  /**
-   * Devuelve el total de líneas de código sumando las de todas las clases
-   * registradas.
-   */
+  /** Devuelve el total de líneas de código sumando las de todas las clases registradas. */
   public int getTotalLinesOfCode() {
     int totalLines = 0;
     for (JavaClass javaClass : javaClasses) {
@@ -86,9 +78,7 @@ public class StructCounter {
     return javaClasses.size();
   }
 
-  /**
-   * Devolver el total de métodos sumando los de todas las clases registradas.
-   */
+  /** Devolver el total de métodos sumando los de todas las clases registradas. */
   public int getTotalMethodsCount() {
     int totalMethods = 0;
     for (JavaClass javaClass : javaClasses) {
@@ -97,9 +87,7 @@ public class StructCounter {
     return totalMethods;
   }
 
-  /**
-   * Devuelve la lista completa de objetos JavaClass registrados.
-   */
+  /** Devuelve la lista completa de objetos JavaClass registrados. */
   public List<JavaClass> getClasses() {
     return new ArrayList<>(javaClasses);
   }

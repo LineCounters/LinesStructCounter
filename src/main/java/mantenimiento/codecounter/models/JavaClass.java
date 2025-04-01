@@ -1,16 +1,14 @@
 package mantenimiento.codecounter.models;
 
-/**
- * Representa una clase Java individual con sus contadores de líneas y métodos.
- */
+/** Representa una clase Java individual con sus contadores de líneas y métodos. */
 public class JavaClass {
   private int methodsAmount;
   private int linesOfCode;
-  private String className; 
+  private String className;
 
   public JavaClass(String className) {
     if (className == null || className.trim().isEmpty()) {
-        throw new IllegalArgumentException("El nombre de la clase no puede ser nulo o vacío.");
+      throw new IllegalArgumentException("El nombre de la clase no puede ser nulo o vacío.");
     }
     this.className = className;
     this.methodsAmount = 0;
@@ -45,18 +43,22 @@ public class JavaClass {
   @Override
   public String toString() {
     // Útil para depuración
-    return "JavaClass{" +
-           "className='" + className + '\'' +
-           ", linesOfCode=" + linesOfCode +
-           ", methodsAmount=" + methodsAmount +
-           '}';
+    return "JavaClass{"
+        + "className='"
+        + className
+        + '\''
+        + ", linesOfCode="
+        + linesOfCode
+        + ", methodsAmount="
+        + methodsAmount
+        + '}';
   }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        JavaClass javaClass = (JavaClass) o;
-        return className.equals(javaClass.className); 
-    }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    JavaClass javaClass = (JavaClass) o;
+    return className.equals(javaClass.className);
+  }
 }

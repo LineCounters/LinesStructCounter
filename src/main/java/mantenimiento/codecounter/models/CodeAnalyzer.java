@@ -1,5 +1,7 @@
 package mantenimiento.codecounter.models;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import mantenimiento.codecounter.exceptions.InvalidFormatException;
 import mantenimiento.codecounter.models.counters.StructCounter;
 import mantenimiento.codecounter.templates.LogicalValidator;
@@ -7,12 +9,8 @@ import mantenimiento.codecounter.validators.ValidatorManager;
 import mantenimiento.codecounter.validators.logical_validators.MethodDeclarationValidator;
 import mantenimiento.codecounter.validators.logical_validators.TypeDeclarationValidator;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 /**
- * Analiza líneas de código Java para contar clases (anidadas incluidas),
- * métodos y líneas físicas.
+ * Analiza líneas de código Java para contar clases (anidadas incluidas), métodos y líneas físicas.
  */
 public class CodeAnalyzer {
 
@@ -23,9 +21,8 @@ public class CodeAnalyzer {
 
   /**
    * Constructor.
-   * 
-   * @param counter El contador donde se almacenarán los resultados. No puede ser
-   *                nulo.
+   *
+   * @param counter El contador donde se almacenarán los resultados. No puede ser nulo.
    */
   public CodeAnalyzer(StructCounter counter) {
     this.counter = counter;
@@ -34,12 +31,10 @@ public class CodeAnalyzer {
   }
 
   /**
-   * Procesa una línea de código fuente. Hace el análisis llamando a métodos
-   * auxiliares.
-   * 
+   * Procesa una línea de código fuente. Hace el análisis llamando a métodos auxiliares.
+   *
    * @param line La línea de código a procesar.
-   * @throws InvalidFormatException Si los validadores detectan un formato
-   *                                inválido.
+   * @throws InvalidFormatException Si los validadores detectan un formato inválido.
    */
   public void processLine(String line) throws InvalidFormatException {
     String trimmedLine = preprocessLine(line);
@@ -54,7 +49,7 @@ public class CodeAnalyzer {
 
   /**
    * Preprocesa la línea: recorta espacios y verifica si debe ignorarse.
-   * 
+   *
    * @param line Línea original.
    * @return La línea recortada, o null si debe ignorarse.
    */
@@ -66,10 +61,7 @@ public class CodeAnalyzer {
     return trimmedLine;
   }
 
-  /**
-   * Llama a StructCounter para añadir una línea a todas las clases en el contexto
-   * actual.
-   */
+  /** Llama a StructCounter para añadir una línea a todas las clases en el contexto actual. */
   private void countLineForCurrentContext() {
     if (!classContextStack.isEmpty()) {
       for (String classNameInStack : classContextStack) {
@@ -78,12 +70,11 @@ public class CodeAnalyzer {
     }
   }
 
-  private record DeclarationInfo(boolean isType, boolean isMethod, String potentialClassName) {
-  }
+  private record DeclarationInfo(boolean isType, boolean isMethod, String potentialClassName) {}
 
   /**
    * Determina si la línea contiene una declaración de tipo o método.
-   * 
+   *
    * @param trimmedLine La línea de código recortada.
    * @return Un objeto DeclarationInfo con los resultados.
    * @throws InvalidFormatException Si los validadores lanzan la excepción.
@@ -105,13 +96,12 @@ public class CodeAnalyzer {
   }
 
   /**
-   * Itera sobre los caracteres de la línea, actualiza el nivel de llaves,
-   * y llama a push/pop del contexto de clase cuando corresponde.
-   * 
-   * @param line                      La línea de código original (para iterar
-   *                                  caracteres).
-   * @param potentialClassNameForLine El nombre de la clase declarada en ESTA
-   *                                  línea (si aplica), null si no.
+   * Itera sobre los caracteres de la línea, actualiza el nivel de llaves, y llama a push/pop del
+   * contexto de clase cuando corresponde.
+   *
+   * @param line La línea de código original (para iterar caracteres).
+   * @param potentialClassNameForLine El nombre de la clase declarada en ESTA línea (si aplica),
+   *     null si no.
    */
   private void processBracesAndUpdateContext(String line, String potentialClassNameForLine) {
     int levelBeforeProcessingLine = currentBraceLevel;
@@ -137,20 +127,21 @@ public class CodeAnalyzer {
   }
 
   /**
-   * Intenta sacar una clase del contexto si el nivel de llaves actual
-   * coincide con el cierre esperado de la clase más interna.
+   * Intenta sacar una clase del contexto si el nivel de llaves actual coincide con el cierre
+   * esperado de la clase más interna.
    */
   private void tryPopClassContext() {
-    if (!classContextStack.isEmpty() && !classStartBraceLevelStack.isEmpty() &&
-        currentBraceLevel == classStartBraceLevelStack.peek() + 1) {
+    if (!classContextStack.isEmpty()
+        && !classStartBraceLevelStack.isEmpty()
+        && currentBraceLevel == classStartBraceLevelStack.peek() + 1) {
       popClassContext();
     }
   }
 
   /**
    * Añade una clase al contexto y actualiza los contadores.
-   * 
-   * @param className  Nombre de la clase.
+   *
+   * @param className Nombre de la clase.
    * @param braceLevel Nivel de llaves antes de la apertura de esta clase.
    */
   private void pushClassContext(String className, int braceLevel) {
@@ -162,9 +153,7 @@ public class CodeAnalyzer {
     }
   }
 
-  /**
-   * Saca la clase más interna del contexto (de ambas pilas).
-   */
+  /** Saca la clase más interna del contexto (de ambas pilas). */
   private void popClassContext() {
     if (!classContextStack.isEmpty()) {
       classContextStack.pop();
@@ -176,7 +165,7 @@ public class CodeAnalyzer {
 
   /**
    * Llama al contador para incrementar el número de métodos si aplica.
-   * 
+   *
    * @param isMethodDeclaration true si la línea actual declaró un método.
    */
   private void countMethodIfDeclared(boolean isMethodDeclaration) {
@@ -187,7 +176,7 @@ public class CodeAnalyzer {
 
   /**
    * Verifica si la línea es un comentario simple de una línea.
-   * 
+   *
    * @param trimmedLine Línea recortada.
    * @return true si es comentario, false si no.
    */
@@ -197,7 +186,7 @@ public class CodeAnalyzer {
 
   /**
    * Devuelve el contador asociado a este analizador.
-   * 
+   *
    * @return El objeto StructCounter.
    */
   public StructCounter getCounter() {
