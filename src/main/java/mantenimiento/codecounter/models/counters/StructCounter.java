@@ -54,6 +54,7 @@ public class StructCounter {
     return totalMethods;
   }
 
+  /** Devolver la lista de clases */
   public List<JavaClass> getClasses() {
     return javaClasses;
   }
