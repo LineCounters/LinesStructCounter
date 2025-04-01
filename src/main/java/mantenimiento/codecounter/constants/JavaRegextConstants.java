@@ -7,7 +7,7 @@ package mantenimiento.codecounter.constants;
 public class JavaRegextConstants {
   public static final String FLOW_CONTROL_KEYS = "(\\s*(if|for|(\\}\\s*)?while|switch)\\s*)";
   public static final String TRY_DECLARATION = "^(\\s*try\\s*(\\(|\\{).*)";
-  public static final String ABSRTACT_KEY = "(abstract\\s+)?";
+  public static final String ABSTRACT_KEY = "(abstract\\s+)?";
   public static final String ACCESS_MODIFIERS_REGEX = "((public|private|protected)\\s+)?";
   public static final String DATATYPE_DECLARATION_REGEX = "(\\s*[a-zA-Z0-9]+(<[a-zA-Z0-9]+>)?\\s+)";
   public static final String PARAMETERS_DECLARATION_REGEX = "(\\([^)]*\\)\\s*)";

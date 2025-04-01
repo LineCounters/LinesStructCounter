@@ -1,41 +1,56 @@
 package mantenimiento.codecounter.models.counters;
 
-/** Clase que representa un contador de estructuras : Clase y método */
-public class StructCounter extends LineCounter {
-  private int classAmount;
-  private int methodsAmount;
+import java.util.ArrayList;
+import java.util.List;
+import mantenimiento.codecounter.models.JavaClass;
+
+/** Clase que representa un contador de estructuras: Clase y método */
+public class StructCounter {
+  private final List<JavaClass> javaClasses;
 
   public StructCounter(String fileName) {
-    super(fileName);
-    this.classAmount = 0;
-    this.methodsAmount = 0;
+    this.javaClasses = new ArrayList<>();
   }
 
-  /** Incrementa el contador de clases en 1. */
-  public void incrementClassCount() {
-    this.classAmount++;
+  /** Añadir una nueva clase */
+  public void addClass(String className) {
+    javaClasses.add(new JavaClass(className));
   }
 
-  /** Incrementa el contador de métodos en 1. */
-  public void incrementMethodCount() {
-    this.methodsAmount++;
+  /** Añadir un método a la última clase registrada */
+  public void addMethodToLastClass() {
+    if (!javaClasses.isEmpty()) {
+      javaClasses.get(javaClasses.size() - 1).incrementMethodsAmount();
+    }
   }
 
-  /**
-   * Obtiene la cantidad de clases.
-   *
-   * @return Cantidad de clases.
-   */
-  public int getClassCount() {
-    return this.classAmount;
+  /** Añadir una línea física a la última clase registrada */
+  public void addLineToLastClass() {
+    if (!javaClasses.isEmpty()) {
+      javaClasses.get(javaClasses.size() - 1).incrementLinesOfCode();
+    }
   }
 
-  /**
-   * Obtiene la cantidad de métodos.
-   *
-   * @return Cantidad de métodos.
-   */
-  public int getMethodsCount() {
-    return this.methodsAmount;
+  public int getLinesOfCode() {
+    int totalLines = 0;
+    for (JavaClass javaClass : javaClasses) {
+      totalLines += javaClass.getLinesOfCode();
+    }
+    return totalLines;
+  }
+
+  public int getClassesCount() {
+    return javaClasses.size();
+  }
+
+  public void getClasses() {
+    for (JavaClass javaClass : javaClasses) {
+      System.out.println(
+          javaClass.getClassName()
+              + " "
+              + javaClass.getMethodsAmount()
+              + " "
+              + javaClass.getLinesOfCode());
+    }
   }
 }

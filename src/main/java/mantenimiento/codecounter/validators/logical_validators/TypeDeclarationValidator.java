@@ -36,4 +36,20 @@ public class TypeDeclarationValidator implements LogicalValidator {
   private boolean isTypeDeclaration(String line) {
     return line.matches(TYPE_DECLARATION) && !line.contains("\"");
   }
+
+  /*
+   * Obtiene el nombre del tipo declarado en la línea de código
+   */
+
+  public String getTypeName(String line) {
+    if (line.contains("\"")) return null;
+
+    String[] tokens = line.trim().split("\\s+");
+    for (int i = 0; i < tokens.length - 1; i++) {
+      if (tokens[i].equals("class") || tokens[i].equals("interface") || tokens[i].equals("enum")) {
+        return tokens[i + 1];
+      }
+    }
+    return null;
+  }
 }

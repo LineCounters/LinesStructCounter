@@ -28,7 +28,7 @@ public class TerminalReporter extends Reporter {
     System.out.println("Programa: " + this.programName);
     System.out.println(
         "-------------------------------------------------------------------------------------------");
-    System.out.printf(" %-40s  %-15s  %-15s  %-15s \n", "Archivo", "Clases", "Métodos", "Lineas");
+    System.out.printf(" %-40s  %-15s  \n", "Archivo", "Clases");
     System.out.println(
         "-------------------------------------------------------------------------------------------");
   }
@@ -38,18 +38,10 @@ public class TerminalReporter extends Reporter {
    * analizado
    */
   private void printBody() {
-    for (StructCounter lineCounter : this.lineCounters) {
-      System.out.printf(
-          " %-40s  %-15d  %-15d  %-15d \n",
-          lineCounter.getFileName(),
-          lineCounter.getClassCount(),
-          lineCounter.getMethodsCount(),
-          lineCounter.getPhysicalLineCount());
+    for (StructCounter lineCounter : lineCounters) {
+      lineCounter.getClasses();
     }
-    int totalPhysicalLines =
-        lineCounters.stream().mapToInt(StructCounter::getPhysicalLineCount).sum();
     System.out.println(
         "-------------------------------------------------------------------------------------------");
-    System.out.printf(" %-40s  %-15s  %-15s  %-15s  \n", "Lineas totales:", "", totalPhysicalLines);
   }
 }

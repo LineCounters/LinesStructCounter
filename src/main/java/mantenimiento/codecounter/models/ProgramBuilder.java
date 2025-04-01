@@ -42,7 +42,7 @@ public class ProgramBuilder {
    * @throws InvalidFormatException Si se encuentra un error de formato en algún archivo.
    */
   private static List<StructCounter> processFiles(List<Path> javaFilePaths)
-      throws FileNotFoundException {
+      throws FileNotFoundException, InvalidFormatException {
 
     List<StructCounter> lineCounters = new ArrayList<>();
 
@@ -63,7 +63,7 @@ public class ProgramBuilder {
    * @param lineCounter Contador de líneas donde se almacenan los resultados.
    * @throws InvalidFormatException Si alguna línea tiene un formato incorrecto.
    */
-  private static StructCounter processLines(JavaFile javaFile) {
+  private static StructCounter processLines(JavaFile javaFile) throws InvalidFormatException {
 
     List<String> fileContent = javaFile.removeComments().removeBlankLines().getContent();
     StructCounter lineCounter = new StructCounter(javaFile.getFileName());
