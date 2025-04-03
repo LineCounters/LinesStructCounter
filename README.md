@@ -1,33 +1,34 @@
-# Lines Counter
+# LinesStructCounter
 
-- Versión recomendada de Python: 3.11
+## 📋 Requisitos
 
-## Instalar el entorno (Antes de ejecutar el programa):
+- Versión recomendada de Java: 17+
+- Maven para la gestión de dependencias
 
-1. Crear el entorno de desarrollo:
+## 🚀 Instalación y Configuración
+
+### 📂 Clonar el repositorio
 
 ```bash
-python3 -m venv env
+git clone <URL_DEL_REPOSITORIO>
+cd <NOMBRE_DEL_PROYECTO>
 ```
 
-2. Activar el entorno de desarrollo:
-
-En `Windows`:
+### 🔨 Configurar y ejecutar con maven
 
 ```bash
-env\Scripts\activate
+mvn clean install
+mvn exec:java -Dexec.mainClass="mantenimiento.codecounter.Main"
 ```
 
-En `Unix/Linux` o `MacOS`:
+### 🖥️ Generar un ejecutable en Windows
 
 ```bash
-source env/bin/activate
+mvn package
 ```
 
-3. Instalar las dependencias:
+## 🤖Uso con ejecutable generado
 
 ```bash
-pip install -r requirements.txt
-
-pre-commit install
+java -jar target/coudecounter-1.0.0.jar
 ```
