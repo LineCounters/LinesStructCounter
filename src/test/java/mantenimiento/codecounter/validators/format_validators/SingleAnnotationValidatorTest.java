@@ -1,4 +1,4 @@
-package mantenimiento.codecounter.validators.formatValidators;
+package mantenimiento.codecounter.validators.format_validators;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,7 +7,7 @@ import mantenimiento.codecounter.exceptions.InvalidFormatException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class SingleAnnotationValidatorTest {
+class SingleAnnotationValidatorTest {
   private final SingleAnnotationValidator validator = new SingleAnnotationValidator();
 
   @Test

@@ -1,4 +1,4 @@
-package mantenimiento.codecounter.validators.formatValidators;
+package mantenimiento.codecounter.validators.format_validators;
 
 import static mantenimiento.codecounter.constants.JavaRegextConstants.ANNOTATION_REGEX;
 import static mantenimiento.codecounter.constants.ReasonInvalidFormat.INVALID_ANOTATION_STATEMENT;

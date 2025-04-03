@@ -5,9 +5,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import mantenimiento.codecounter.exceptions.FileNotFoundException;
-import mantenimiento.codecounter.exceptions.FolderNotFoundException;
 import mantenimiento.codecounter.exceptions.InvalidFormatException;
-import mantenimiento.codecounter.exceptions.JavaFilesNotFoundException;
 import mantenimiento.codecounter.models.counters.StructCounter;
 import mantenimiento.codecounter.models.reporters.Reporter;
 import mantenimiento.codecounter.models.reporters.TerminalReporter;
@@ -29,14 +27,8 @@ public class ProgramBuilder {
       List<Path> javaFilePaths = JavaFilesScanner.getJavaFiles(folderPath);
       List<StructCounter> lineCounters = processFiles(javaFilePaths);
       generateReport(folderPath, lineCounters);
-    } catch (FolderNotFoundException e) {
-      System.out.println(e.getMessage());
-    } catch (JavaFilesNotFoundException e) {
-      System.out.println(e.getMessage());
-    } catch (InvalidFormatException e) {
-      System.out.println("Error de formato en archivo: " + e.getFileName());
-      System.out.println("Razon: " + e.getMessage());
     } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }
 
@@ -57,12 +49,7 @@ public class ProgramBuilder {
     for (Path filePath : javaFilePaths) {
       JavaFile javaFile = new JavaFile(filePath);
 
-      try {
-        lineCounters.add(processLines(javaFile));
-      } catch (InvalidFormatException e) {
-        e.setFileName(filePath.getFileName().toString());
-        throw e;
-      }
+      lineCounters.add(processLines(javaFile));
     }
     return lineCounters;
   }
@@ -79,7 +66,7 @@ public class ProgramBuilder {
   private static StructCounter processLines(JavaFile javaFile) throws InvalidFormatException {
 
     List<String> fileContent = javaFile.removeComments().removeBlankLines().getContent();
-    StructCounter lineCounter = new StructCounter(javaFile.getFileName());
+    StructCounter lineCounter = new StructCounter();
     CodeAnalyzer analyzer = new CodeAnalyzer(lineCounter);
 
     for (String line : fileContent) {
@@ -99,4 +86,6 @@ public class ProgramBuilder {
     Reporter reporter = new TerminalReporter(Paths.get(folderPath), lineCounters);
     reporter.generateReport();
   }
+
+  private ProgramBuilder() {}
 }

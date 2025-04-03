@@ -1,7 +1,10 @@
 package mantenimiento.codecounter.models;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import mantenimiento.codecounter.exceptions.InvalidFormatException;
 import mantenimiento.codecounter.models.counters.StructCounter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -9,83 +12,110 @@ import org.junit.jupiter.api.Test;
 
 class CodeAnalyzerTest {
 
-  private StructCounter counter;
+  private StructCounter structCounter;
   private CodeAnalyzer codeAnalyzer;
 
   @BeforeEach
   void setUp() {
-    counter = new StructCounter("Test.java");
-    codeAnalyzer = new CodeAnalyzer(counter);
+    structCounter = new StructCounter();
+    codeAnalyzer = new CodeAnalyzer(structCounter);
   }
 
   @Test
-  @DisplayName("Debe incrementar el contador de clases al procesar una declaración de clase")
-  void testProcessLine_TypeDeclaration() {
-    String line = "class MyClass {";
+  @DisplayName("Procesar línea: línea de comentario")
+  void testProcessLine_CommentLine() throws InvalidFormatException {
+    String line = "// Esto es un comentario";
 
     codeAnalyzer.processLine(line);
 
-    assertEquals(1, counter.getClassCount());
-    assertEquals(1, counter.getPhysicalLineCount());
+    assertTrue(structCounter.getClasses().isEmpty());
   }
 
   @Test
-  @DisplayName("Debe incrementar el contador de métodos al procesar una declaración de método")
-  void testProcessLine_MethodDeclaration() {
-    String line = "public void myMethod() {";
+  @DisplayName("Procesar línea: línea vacía")
+  void testProcessLine_EmptyLine() throws InvalidFormatException {
+    String line = "   ";
 
     codeAnalyzer.processLine(line);
 
-    assertEquals(1, counter.getMethodsCount());
-    assertEquals(1, counter.getPhysicalLineCount());
+    assertTrue(structCounter.getClasses().isEmpty());
   }
 
   @Test
-  @DisplayName("No debe incrementar contadores al procesar una llave de cierre")
-  void testProcessLine_CloseBrace() {
-    String line = "}";
+  @DisplayName("Preprocesar línea: ignorar línea de comentario")
+  void testPreprocessLine_IgnoreCommentLine() {
+    String commentLine = "// Esto es un comentario";
 
-    codeAnalyzer.processLine(line);
+    String result = codeAnalyzer.preprocessLine(commentLine);
 
-    assertEquals(0, counter.getClassCount());
-    assertEquals(0, counter.getMethodsCount());
-    assertEquals(0, counter.getPhysicalLineCount());
+    assertNull(result);
   }
 
   @Test
-  @DisplayName("Debe incrementar el contador de líneas físicas dentro de una clase")
-  void testProcessLine_PhysicalLineInsideClass() {
-    codeAnalyzer.processLine("class MyClass {");
-    codeAnalyzer.processLine("int x = 0;");
+  @DisplayName("Preprocesar línea: ignorar línea vacía")
+  void testPreprocessLine_IgnoreEmptyLine() {
+    String emptyLine = "   ";
 
-    assertEquals(1, counter.getClassCount());
-    assertEquals(2, counter.getPhysicalLineCount());
+    String result = codeAnalyzer.preprocessLine(emptyLine);
+
+    assertNull(result);
   }
 
   @Test
-  @DisplayName("Debe manejar múltiples clases y métodos correctamente")
-  void testProcessLine_MultipleClassesAndMethods() {
-    codeAnalyzer.processLine("class MyClass {");
-    codeAnalyzer.processLine("public void myMethod() {");
-    codeAnalyzer.processLine("int x = 0;");
-    codeAnalyzer.processLine("}");
-    codeAnalyzer.processLine("}");
+  @DisplayName("Preprocesar línea: línea válida")
+  void testPreprocessLine_ValidLine() {
+    String validLine = "public class TestClass {";
 
-    assertEquals(1, counter.getClassCount());
-    assertEquals(1, counter.getMethodsCount());
-    assertEquals(5, counter.getPhysicalLineCount());
+    String result = codeAnalyzer.preprocessLine(validLine);
+
+    assertEquals("public class TestClass {", result);
   }
 
   @Test
-  @DisplayName("Debe manejar múltiples clases correctamente")
-  void testProcessLine_MultipleClasses() {
-    codeAnalyzer.processLine("class MyClass {");
-    codeAnalyzer.processLine("}");
-    codeAnalyzer.processLine("class AnotherClass {");
-    codeAnalyzer.processLine("}");
+  @DisplayName("Obtener contador")
+  void testGetCounter() {
+    assertEquals(structCounter, codeAnalyzer.getCounter());
+  }
 
-    assertEquals(2, counter.getClassCount());
-    assertEquals(0, counter.getMethodsCount());
-    assertEquals(4, counter.getPhysicalLineCount());
+  @Test
+  @DisplayName("Contar las clases anidadas")
+  void testCountNestedClasses() throws InvalidFormatException {
+    String line1 = "public class OuterClass {";
+    String line2 = "public class InnerClass {";
+    String line3 = "public class InnerMostClass {";
+
+    codeAnalyzer.processLine(line1);
+    codeAnalyzer.processLine(line2);
+    codeAnalyzer.processLine(line3);
+
+    assertEquals(3, structCounter.getClassesCount());
+  }
+
+  @Test
+  @DisplayName("Contar métodos en una clase")
+  void testCountMethodsInClass() throws InvalidFormatException {
+    String line1 = "public class TestClass {";
+    String line2 = "public void testMethod() {";
+    String line3 = "return; } }";
+
+    codeAnalyzer.processLine(line1);
+    codeAnalyzer.processLine(line2);
+    codeAnalyzer.processLine(line3);
+
+    assertEquals(1, structCounter.getClasses().get(0).getMethodsAmount());
+  }
+
+  @Test
+  @DisplayName("Contar líneas de código en una clase")
+  void testCountLinesOfCodeInClass() throws InvalidFormatException {
+    String line1 = "public class TestClass {";
+    String line2 = "int a = 0;";
+    String line3 = "return; } }";
+
+    codeAnalyzer.processLine(line1);
+    codeAnalyzer.processLine(line2);
+    codeAnalyzer.processLine(line3);
+
+    assertEquals(3, structCounter.getClasses().get(0).getLinesOfCode());
   }
 }

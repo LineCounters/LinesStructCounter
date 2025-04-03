@@ -24,13 +24,13 @@ public class TerminalReporter extends Reporter {
    */
   private void printHeader() {
     System.out.println(
-        "-------------------------------------------------------------------------------------------");
+        "---------------------------------------------------------------------------------");
     System.out.println("Programa: " + this.programName);
     System.out.println(
-        "-------------------------------------------------------------------------------------------");
-    System.out.printf(" %-40s  %-15s  %-15s  %-15s \n", "Archivo", "Clases", "Métodos", "Lineas");
+        "---------------------------------------------------------------------------------");
+    System.out.printf(" %-40s  %-15s  %-15s %n", "Clases", "Métodos", "Lineas");
     System.out.println(
-        "-------------------------------------------------------------------------------------------");
+        "---------------------------------------------------------------------------------");
   }
 
   /**
@@ -38,18 +38,22 @@ public class TerminalReporter extends Reporter {
    * analizado
    */
   private void printBody() {
-    for (StructCounter lineCounter : this.lineCounters) {
-      System.out.printf(
-          " %-40s  %-15d  %-15d  %-15d \n",
-          lineCounter.getFileName(),
-          lineCounter.getClassCount(),
-          lineCounter.getMethodsCount(),
-          lineCounter.getPhysicalLineCount());
+    for (StructCounter lineCounter : lineCounters) {
+      lineCounter
+          .getClasses()
+          .forEach(
+              javaClass ->
+                  System.out.printf(
+                      " %-40s  %-15d  %-15d %n",
+                      javaClass.getClassName(),
+                      javaClass.getMethodsAmount(),
+                      javaClass.getLinesOfCode()));
     }
-    int totalPhysicalLines =
-        lineCounters.stream().mapToInt(StructCounter::getPhysicalLineCount).sum();
+
     System.out.println(
-        "-------------------------------------------------------------------------------------------");
-    System.out.printf(" %-40s  %-15s  %-15s  %-15s  \n", "Lineas totales:", "", totalPhysicalLines);
+        "---------------------------------------------------------------------------------");
+    int totalPhysicalLines =
+        lineCounters.stream().mapToInt(StructCounter::getTotalLinesOfCode).sum();
+    System.out.println("Total de líneas físicas de código: " + totalPhysicalLines);
   }
 }

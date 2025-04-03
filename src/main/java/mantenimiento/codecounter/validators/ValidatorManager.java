@@ -3,17 +3,16 @@ package mantenimiento.codecounter.validators;
 import java.util.List;
 import mantenimiento.codecounter.templates.FormatValidator;
 import mantenimiento.codecounter.templates.LogicalValidator;
-import mantenimiento.codecounter.validators.formatValidators.ImportValidator;
-import mantenimiento.codecounter.validators.formatValidators.SingleAnnotationValidator;
-import mantenimiento.codecounter.validators.formatValidators.SingleDeclarationValidator;
-import mantenimiento.codecounter.validators.formatValidators.StyleKAndRValidator;
-import mantenimiento.codecounter.validators.logicalValidators.MethodDeclarationValidator;
-import mantenimiento.codecounter.validators.logicalValidators.TypeDeclarationValidator;
+import mantenimiento.codecounter.validators.format_validators.ImportValidator;
+import mantenimiento.codecounter.validators.format_validators.SingleAnnotationValidator;
+import mantenimiento.codecounter.validators.format_validators.SingleDeclarationValidator;
+import mantenimiento.codecounter.validators.format_validators.StyleKAndRValidator;
+import mantenimiento.codecounter.validators.logical_validators.MethodDeclarationValidator;
+import mantenimiento.codecounter.validators.logical_validators.TypeDeclarationValidator;
 
 /** Brinda el acceso a los validadores de formato o de líneas lógicas */
 public class ValidatorManager {
   private static FormatValidator formatValidator = null;
-  private static LogicalValidator logicalValidator = null;
 
   /**
    * Genera la secuencia de validaciones de formato
@@ -56,4 +55,6 @@ public class ValidatorManager {
         .findFirst()
         .orElse(null);
   }
+
+  private ValidatorManager() {}
 }

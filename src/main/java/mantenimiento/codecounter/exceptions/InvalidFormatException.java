@@ -9,6 +9,10 @@ public class InvalidFormatException extends Exception {
     super(error.toString() + "\nLinea: " + lineOfCode);
   }
 
+  public InvalidFormatException(String message) {
+    super(message);
+  }
+
   public void setFileName(String fileName) {
     this.fileName = fileName;
   }

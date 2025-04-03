@@ -1,4 +1,4 @@
-package mantenimiento.codecounter.validators.formatValidators;
+package mantenimiento.codecounter.validators.format_validators;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;

@@ -9,7 +9,7 @@ public abstract class Reporter {
   protected String programName;
   protected List<StructCounter> lineCounters;
 
-  public Reporter(Path filePath, List<StructCounter> lineCounters) {
+  protected Reporter(Path filePath, List<StructCounter> lineCounters) {
     this.programName = filePath.getFileName().toString();
     this.lineCounters = lineCounters;
   }
