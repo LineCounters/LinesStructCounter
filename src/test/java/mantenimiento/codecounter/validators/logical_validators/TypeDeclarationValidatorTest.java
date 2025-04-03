@@ -45,7 +45,7 @@ class TypeDeclarationValidatorTest {
   }
 
   @Test
-  @DisplayName("Debe de validar correctamente una declaración con liea vacía")
+  @DisplayName("Debe de validar correctamente una declaración con linea vacía")
   void testValidateTypeWithEmptyLine() {
     String emptyLine = "";
     assertFalse(validator.validateType(emptyLine));
